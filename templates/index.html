@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Crypto Tracker</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+
+    background:
+    radial-gradient(circle at top,#6b21ff 0%,transparent 40%),
+    radial-gradient(circle at bottom,#00d4ff 0%,transparent 35%),
+    #080812;
+
+    background-attachment:fixed;
+
+    color:white;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow-x:hidden;
+
+}
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background-image:
+
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+
+    background-size:40px 40px;
+
+    pointer-events:none;
+
+}
+
+.container{
+
+    width:550px;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:
+
+    0 0 40px rgba(0,255,255,.15),
+
+    0 0 80px rgba(255,0,255,.15);
+
+}
+
+h1{
+
+    text-align:center;
+
+    font-size:40px;
+
+    color:#00f7ff;
+
+    text-shadow:
+
+    0 0 10px cyan,
+
+    0 0 20px cyan,
+
+    0 0 40px cyan;
+
+    letter-spacing:2px;
+
+}
+
+p{
+
+    text-align:center;
+
+    margin-top:10px;
+
+    margin-bottom:35px;
+
+    color:#d9d9d9;
+
+}
+
+input{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.05);
+
+    color:white;
+
+    font-size:17px;
+
+    border:1px solid rgba(0,255,255,.3);
+
+    transition:.3s;
+
+}
+
+input::placeholder{
+
+    color:#bdbdbd;
+
+}
+
+input:focus{
+
+    box-shadow:
+
+    0 0 20px cyan;
+
+    border:1px solid cyan;
+
+}
+
+button{
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:linear-gradient(90deg,#ff00ff,#00f7ff);
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.4s;
+
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+
+    0 0 20px #00f7ff,
+
+    0 0 40px #ff00ff;
+
+}
+
+.result{
+
+    margin-top:35px;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    text-align:center;
+
+    animation:fade .5s ease;
+
+}
+
+.result img{
+
+    width:110px;
+
+    margin-bottom:20px;
+
+    filter:drop-shadow(0 0 15px gold);
+
+}
+
+.result h2{
+
+    font-size:34px;
+
+    color:#00f7ff;
+
+    margin-bottom:10px;
+
+}
+
+.result p{
+
+    text-align:left;
+
+    margin:12px 0;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,.05);
+
+    font-size:17px;
+
+}
+
+.error{
+
+    margin-top:25px;
+
+    background:rgba(255,0,0,.15);
+
+    border:1px solid red;
+
+    color:#ff4d4d;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+}
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#00f7ff;
+
+    border-radius:20px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💰 Crypto Price Tracker</h1>
+
+<form method="POST">
+
+<input
+type="text"
+name="coin"
+placeholder="Enter Cryptocurrency">
+
+<br><br>
+
+<button type="submit">
+
+Search
+
+</button>
+
+</form>
+
+{% if error %}
+
+<h3 style="color:red;">
+
+{{ error }}
+
+</h3>
+
+{% endif %}
+
+{% if crypto %}
+
+<div class="result">
+
+<img src="{{ crypto.image }}">
+
+<h2>{{ crypto.name }}</h2>
+
+<p><b>Symbol:</b> {{ crypto.symbol }}</p>
+
+<p><b>Price:</b> ${{ crypto.price }}</p>
+
+<p><b>Market Rank:</b> {{ crypto.rank }}</p>
+
+<p><b>24H Change:</b> {{ crypto.change }}%</p>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+
+</html>
